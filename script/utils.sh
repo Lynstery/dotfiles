@@ -17,35 +17,29 @@ fail() {
   exit 1
 }
 
-link_file() {
+linkfile() {
   local src=$1 dst=$2
   local overwrite=false backup=false skip=false action=
 
   if [[ -e "$dst" ]]; then
     if [[ $overwrite_all != true && $backup_all != true && $skip_all != true ]]; then
-      local currentSrc
-      currentSrc="$(readlink "$dst" 2>/dev/null || true)"
 
-      if [[ $currentSrc == "$src" ]]; then
-        skip=true
-      else
-        user "File already exists: $dst ($(basename "$src")).
-        What do you want to do?
-        [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+      user "File already exists: $dst ($(basename "$src")).
+      What do you want to do?"
 
-        read -rn1 action
-        echo ""  # 换行
+      echo "[s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+      read -rn1 action </dev/tty
+      echo ""
 
-        case "$action" in
-          o) overwrite=true ;;
-          O) overwrite_all=true ;;
-          b) backup=true ;;
-          B) backup_all=true ;;
-          s) skip=true ;;
-          S) skip_all=true ;;
-          *) ;;
-        esac
-      fi
+      case "$action" in
+        o) overwrite=true ;;
+        O) overwrite_all=true ;;
+        b) backup=true ;;
+        B) backup_all=true ;;
+        s) skip=true ;;
+        S) skip_all=true ;;
+        *) ;;
+      esac
     fi
 
     [[ $overwrite == true || $overwrite_all == true ]] && {

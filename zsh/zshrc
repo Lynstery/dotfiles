@@ -29,7 +29,7 @@ proxyon
 proxytest
 
 # setup zinit
-source $ZSH/zsh/zinit_plugins.zsh
+source $ZSH/zsh/zinit.zsh
 
 # put custom binary to $PATH
 zinit ice as"program"
@@ -39,7 +39,7 @@ zinit light $ZSH/bin
 zinit light $ZSH/functions
 
 # load zinit plugins
-source $ZSH/zsh/plugins
+source $ZSH/zsh/zinit_plugins.zsh
 
 # source other *.zsh
 for f in $other_zsh_files; do

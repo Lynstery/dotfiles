@@ -1,9 +1,9 @@
+echo ''
 info 'install git config'
 
 setup_gitconfig () {
-  if ! [ -f git/gitconfig.local.symlink ]
+  if ! [ -f $DOTFILES_ROOT/git/gitconfig.local.symlink ]
   then
-    info 'setup gitconfig'
     git_credential='store'
     if [ "$(uname -s)" == "Darwin" ]
     then
@@ -11,13 +11,11 @@ setup_gitconfig () {
     fi
 
     user ' - What is your github author name?'
-    read -e git_authorname
+    read -e git_authorname < /dev/tty
     user ' - What is your github author email?'
-    read -e git_authoremail
+    read -e git_authoremail < /dev/tty
 
-    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.local.symlink.example > git/gitconfig.local.symlink
-
-    success 'gitconfig'
+    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" $DOTFILES_ROOT/git/gitconfig.local.symlink.example > $DOTFILES_ROOT/git/gitconfig.local.symlink
   fi
 }
 
@@ -26,7 +24,7 @@ setup_gitconfig
 for src in $(find -H "$DOTFILES_ROOT/git" -maxdepth 1 -name '*.symlink')
 do
   dst="$HOME/.$(basename "${src%.*}")"
-  link_file "$src" "$dst"
+  linkfile "$src" "$dst"
 done
 
 success 'install git config'
