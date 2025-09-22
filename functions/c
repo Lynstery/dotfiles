@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+
+c() {
+  echo "$PROJECTS/$1"
+  cd "$PROJECTS/$1"
+}

@@ -1,0 +1,3 @@
+git/gitconfig.local.symlink
+tmux/tmux.symlink/plugins/*
+.DS_Store

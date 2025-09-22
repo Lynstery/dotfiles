@@ -1,0 +1,47 @@
+export ZSH=$HOME/.dotfiles
+
+export EDITOR='nvim'
+export PROJECTS=~/Workspace
+
+# Stash your environment variables in ~/.localrc. This means they'll stay out
+# of your main dotfiles repository (which may be public, like this one), but
+# you'll have access to them in your scripts.
+if [[ -a $HOME/.localrc ]]
+then
+  source $HOME/.localrc
+fi
+
+zsh_files=($ZSH/*/*.zsh)
+zsh_files=(${zsh_files:#$ZSH/zsh/*})
+zsh_files=(${zsh_files:#$ZSH/functions/*})
+zsh_files=(${zsh_files:#$ZSH/bin/*})
+path_zsh_files=(${config_files:#^*/path.zsh})
+other_zsh_files=(${config_files:#*/path.zsh})
+
+# source path.zsh
+for f in $path_zsh_files; do
+  source "$f"
+done
+
+# Set Proxy before potential plugins installation
+source $ZSH/system/proxy.zsh
+proxyon
+proxytest
+
+# setup zinit
+source $ZSH/zsh/zinit_plugins.zsh
+
+# put custom binary to $PATH
+zinit ice as"program"
+zinit light $ZSH/bin
+
+# load custom functions
+zinit light $ZSH/functions
+
+# load zinit plugins
+source $ZSH/zsh/plugins
+
+# source other *.zsh
+for f in $other_zsh_files; do
+  source "$f"
+done
