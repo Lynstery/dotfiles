@@ -15,8 +15,8 @@ zsh_files=($ZSH/*/*.zsh)
 zsh_files=(${zsh_files:#$ZSH/zsh/*})
 zsh_files=(${zsh_files:#$ZSH/functions/*})
 zsh_files=(${zsh_files:#$ZSH/bin/*})
-path_zsh_files=(${config_files:#^*/path.zsh})
-other_zsh_files=(${config_files:#*/path.zsh})
+path_zsh_files=(${zsh_files:#^*/path.zsh})
+other_zsh_files=(${zsh_files:#*/path.zsh})
 
 # source path.zsh
 for f in $path_zsh_files; do
