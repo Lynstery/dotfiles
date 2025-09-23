@@ -14,6 +14,12 @@ Current Dependencies:
 - fzf
 - zoxide
 - eza
+for macOS:
+- alacritty
+- aerospace
+- sketchybar
+- sesh
+
 
 ## topical
 
@@ -28,7 +34,7 @@ There's a few special files in the hierarchy.
   available everywhere.
 - **topic/\*.zsh**: Any files ending in `.zsh` get loaded into your
   environment.
-- **topic/path.zsh**: Any file named `path.zsh` is loaded first and is
+- **topic/path.zsh**: Any file named `path.zsh` is loaded first (before `compinit`) and is
   expected to setup `$PATH` or similar.
 - **topic/install.sh**: Any file named `install.sh` is executed when you run `script/install`. To avoid being loaded automatically, its extension is `.sh`, not `.zsh`.
 
