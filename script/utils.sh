@@ -5,7 +5,7 @@ info() {
 }
 
 user() {
-  printf "\r  [ \033[0;33m??\033[0m ] %s\n" "$1"
+  printf "\r  [ \033[0;33m??\033[0m ] %s" "$1"
 }
 
 success() {
@@ -17,47 +17,53 @@ fail() {
   exit 1
 }
 
+shortpath() {
+  local path=$1
+  path="${path/#$HOME/~}"
+  echo "$path"
+}
+
 linkfile() {
   local src=$1 dst=$2
-  local overwrite=false backup=false skip=false action=
+  local update=false skip=false action=
 
   if [[ -e "$dst" ]]; then
-    if [[ $overwrite_all != true && $backup_all != true && $skip_all != true ]]; then
+    if [[ $update_all != true && $skip_all != true ]]; then
 
-      user "File already exists: $dst ($(basename "$src")).
-      What do you want to do?"
-
-      echo "[s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+      user "File already exists: $(shortpath "$dst")$( [ -L "$dst" ] && printf ' （%s）' "$(shortpath "$(readlink "$dst")")" )"
+      echo ""
+      user "What do you want to do? [s]kip, [S]kip all, [u]pdate, [U]pdate all? "
       read -rn1 action </dev/tty
       echo ""
 
       case "$action" in
-        o) overwrite=true ;;
-        O) overwrite_all=true ;;
-        b) backup=true ;;
-        B) backup_all=true ;;
+        u) update=true ;;
+        U) update_all=true ;;
         s) skip=true ;;
         S) skip_all=true ;;
         *) ;;
       esac
+    else
+      info "$src already exists"
     fi
 
-    [[ $overwrite == true || $overwrite_all == true ]] && {
-      rm -rf -- "$dst"
-      success "removed $dst"
-    }
-
-    [[ $backup == true || $backup_all == true ]] && {
-      mv -- "$dst" "${dst}.backup"
-      success "moved $dst to ${dst}.backup"
-    }
-
-    [[ $skip == true || $skip_all == true ]] && {
+    if [[ $skip == true || $skip_all == true ]]; then
       success "skipped $src"
       return
-    }
-  fi
+    fi
 
-  ln -s -- "$src" "$dst"
-  success "linked $src to $dst"
+    if [[ -L "$dst" && "$(readlink "$dst")" == $src ]]; then
+      success "$(shortpath "$src") is already linked to $(shortpath "$dst")"
+    else
+      cp -r -- "$dst" "$dst.bak"
+      success "backup $(shortpath "$dst") to $(shortpath "$dst").bak"
+      rm -rf -- "$dst"
+      ln -s -- "$src" "$dst"
+      success "linked $(shortpath "$src") to $(shortpath "$dst")"
+    fi
+  else
+    info "$(shortpath "$dst") not exists"
+    ln -s -- "$src" "$dst"
+    success "linked $(shortpath "$src") to $(shortpath "$dst")"
+  fi
 }

@@ -2,53 +2,70 @@ echo ''
 info 'install zshrc'
 
 setup_zshrc(){
-  local overwrite=false backup=false skip=false action=
+  local update=false skip=false action=
 
   SRC="$DOTFILES_ROOT/zsh/zshrc"
   DST="$HOME/.zshrc"
   START="# >>> added by dotfiles >>>"
   END="# <<< added by dotfiles <<<"
 
-  TMP=$(mktemp)
-  {
-    echo "$START"
-    cat "$SRC"
-    echo "$END"
-  } > "$TMP"
 
-  if [[ -s "$DST" ]]; then
-    user "File already exists: $DST ($(basename "$SRC")). What do you want to do?"
-    echo "[s]kip, [b]ack up & overwrite"
-    read -rn1 action </dev/tty
-    echo ""
+  if [[ -e "$DST" ]]; then
+    if [[ $update_all != true && $backup_all != true ]]; then
 
-    case "$action" in
-      b) backup=true ;;
-      s) skip=true ;;
-      *) ;;
-    esac
+      user "File already exists: $(shortpath "$DST")$( [ -L "$DST" ] && printf ' （%s）' "$(shortpath "$(readlink "$DST")")" )"
+      echo ""
+      user "What do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all? "
+      read -rn1 action </dev/tty
+      echo ""
 
-    if [[ $backup == true ]]; then
-      cp -f "$DST" "$DST.bak"
-      awk -v start="$START" -v end="$END" -v replfile="$TMP" '
-        BEGIN{while((getline l<replfile)>0)buf=buf l ORS;close(replfile);inblk=0;seen=0}
-        index($0,start){print buf;inblk=1;seen=1;next}
-        index($0,end){inblk=0;next}
-        inblk==0{print}
-        END{if(seen==0)print buf}
-      ' "$DST.bak" > "$DST"
-      success "updated $DST with backup at $DST.bak"
-    elif [[ $skip == true ]]; then
-      success "skipped $DST"
+      case "$action" in
+        u) update=true ;;
+        U) update_all=true ;;
+        s) skip=true ;;
+        S) skip_all=true ;;
+        *) ;;
+      esac
+    else
+      info "$(shortpath "$DST") already exists"
     fi
-  else
-    cat "$TMP" > "$DST"
-    success "created $DST"
-  fi
 
-  rm -f "$TMP"
+    if [[ $skip == true || $skip_all == true ]]; then
+      success "skipped $(shortpath "$SRC")"
+      return
+    fi
+
+    cp -r -- "$DST" "${DST}.bak"
+    success "backup $(shortpath "$DST") to $(shortpath "$DST.bak")"
+
+    content="$(cat "$SRC")"
+
+    awk -v start="$START" -v end="$END" -v src="$SRC" '
+      BEGIN {
+        buf = start ORS
+        while ((getline l < src) > 0) buf = buf l ORS
+        close(src)
+        buf = buf end ORS
+        inblk = 0
+        seen  = 0
+      }
+      index($0,start){printf "%s", buf;inblk=1;seen=1;next}
+      index($0,end){inblk=0;next}
+      inblk==0{print}
+      END {if (seen == 0) printf "%s", buf}
+    ' "$DST.bak" > "$DST"
+
+    success "updated $(shortpath "$DST")"
+
+  else
+    success "$(shortpath "$DST") not exists"
+    cat "$TMP" > "$DST"
+    success "created $(shortpath "$DST")"
+  fi
 }
-# 其他额外操作
+
+setup_zshrc
+
 rm -f "$HOME/.config/spaceship.zsh.zwc" 2>/dev/null || true
 linkfile "$DOTFILES_ROOT/zsh/spaceship.zsh.symlink" "$HOME/.config/spaceship.zsh"
 

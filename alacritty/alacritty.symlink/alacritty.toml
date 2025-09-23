@@ -1,0 +1,23 @@
+[general]
+  import = [
+    "~/.config/alacritty/catppuccin-mocha.toml"
+  ]
+[window]
+  decorations = "None"
+  padding = { x = 5, y = 5 }
+  option_as_alt = "Both"
+
+[scrolling]
+  history = 100000
+
+[font]
+  normal = { family = "JetBrainsMono Nerd Font", style = "Light"}
+  size = 15
+
+[terminal]
+  osc52 = "CopyPaste"
+
+[keyboard]
+  bindings = [
+    { key = "N", mods = "Command", action = "CreateNewWindow" },
+  ]

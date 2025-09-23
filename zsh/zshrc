@@ -15,7 +15,7 @@ zsh_files=($ZSH/*/*.zsh)
 zsh_files=(${zsh_files:#$ZSH/zsh/*})
 zsh_files=(${zsh_files:#$ZSH/functions/*})
 zsh_files=(${zsh_files:#$ZSH/bin/*})
-path_zsh_files=(${zsh_files:#^*/path.zsh})
+path_zsh_files=(${zsh_files[(R)*/path.zsh]})
 other_zsh_files=(${zsh_files:#*/path.zsh})
 
 # source path.zsh
@@ -25,8 +25,7 @@ done
 
 # Set Proxy before potential plugins installation
 source $ZSH/system/proxy.zsh
-proxyon
-proxytest
+proxyon &> /dev/null
 
 # setup zinit
 source $ZSH/zsh/zinit.zsh
@@ -42,6 +41,7 @@ zinit light $ZSH/functions
 source $ZSH/zsh/zinit_plugins.zsh
 
 # source other *.zsh
+
 for f in $other_zsh_files; do
   source "$f"
 done
