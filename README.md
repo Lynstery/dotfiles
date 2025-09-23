@@ -14,7 +14,9 @@ Current Dependencies:
 - fzf
 - zoxide
 - eza
+
 for macOS:
+
 - alacritty
 - aerospace
 - sketchybar
