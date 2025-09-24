@@ -1,0 +1,22 @@
+__ssh_config_hosts() {
+  awk '
+    tolower($1)=="host" {
+      for (i=2; i<=NF; i++) {
+        if ($i !~ /[*?]/ && $i !~ /^!/) print $i
+      }
+    }
+  ' ~/.ssh/config 2>/dev/null | sort -u
+}
+
+#compdef show_ssh_conf
+
+_arguments \
+  '1:hostname:->host' && return 0
+
+case $state in
+  host)
+    local -a hosts
+    hosts=(${(f)"$(__ssh_config_hosts)"})
+    _describe -t hosts 'SSH config host' hosts
+    ;;
+esac

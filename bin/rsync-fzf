@@ -1,0 +1,26 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+: ${RSYNCFZF_DEFAULT_OPTS:="-azP"}
+
+usage() {
+  cat <<'H'
+用法：
+  rsync-fzf push <local_path> <host_name> <remote_path>
+  rsync-fzf pull <host_name> <remote_path> <local_path>
+H
+}
+
+[[ ${1:-} == --help || ${1:-} == -h ]] && { usage; exit 0; }
+
+if [[ ${1:-} == push ]]; then
+  [[ $# -lt 4 ]] && { usage; exit 2; }
+  localp=$2; host=$3; remotep=$4
+  exec rsync ${=RSYNCFZF_DEFAULT_OPTS} -- "$localp" "${host}:$remotep"
+elif [[ ${1:-} == pull ]]; then
+  [[ $# -lt 4 ]] && { usage; exit 2; }
+  host=$2; remotep=$3; localp=$4
+  exec rsync ${=RSYNCFZF_DEFAULT_OPTS} -- "${host}:$remotep" "$localp"
+else
+  usage; exit 2
+fi

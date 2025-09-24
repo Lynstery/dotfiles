@@ -30,8 +30,7 @@ proxyon &> /dev/null
 # setup zinit
 source $ZSH/zsh/zinit.zsh
 
-# put custom binary to $PATH
-zinit ice as"program"
+# load custom binary
 zinit light $ZSH/bin
 
 # load custom functions

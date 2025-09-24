@@ -1,0 +1,98 @@
+#compdef rsync-fzf
+
+# ---- 主机名补全：按题主提供逻辑 ----
+__ssh_config_hosts() {
+  awk '
+    tolower($1)=="host" {
+      for (i=2; i<=NF; i++) {
+        if ($i !~ /[*?]/ && $i !~ /^!/) print $i
+      }
+    }
+  ' ~/.ssh/config 2>/dev/null | sort -u
+}
+
+__rsfzf_remote_complete() {
+  local host="$1" pref="$2" maxn=${RSYNCFZF_REMOTE_LIST_MAX:-200}
+  local dir base
+
+  if [[ -z "$pref" ]]; then
+    dir='~'; base=''
+  elif [[ "$pref" == */ ]]; then
+    dir="$pref"; base=''
+  else
+    dir="${pref:h}"; base="${pref:t}"
+    [[ -z "$dir" ]] && dir='.'
+  fi
+
+  ssh -o batchmode=yes -o connecttimeout=3 "$host" bash -lc "
+    set -e
+    cd \"$dir\" 2>/dev/null || exit 0
+    cnt=0
+    find . -maxdepth 1 -mindepth 1 -print0 |
+    while IFS= read -r -d '' x; do
+      name=\${x#./}
+      if [[ -n \"$base\" && \"\$name\" != \"$base\"* ]]; then
+        continue
+      fi
+      if [[ -d \"\$name\" ]]; then
+        printf '%s\\n' \"\$name/\"
+      else
+        printf '%s\\n' \"\$name\"
+      fi
+      (( ++cnt >= $maxn )) && break
+    done
+  " 2>/dev/null \
+  | awk -v P="$dir" -v RS='\n' -v ORS='\n' '
+      NF==0 { next }
+      function join(p, x, sep) {
+        if (p=="." || p=="~" || p=="") return x
+        sep = (p ~ /\/$/) ? "" : "/"
+        return p sep x
+      }
+      { print join(P, $0) }
+  '
+}
+
+# ---- 调度：按两种固定用法定位参数位 ----
+_rsync_fzf() {
+  local -a hosts candidates
+  _arguments -C \
+    '1:mode:(push pull)' \
+    '2::arg2:->arg2' \
+    '3::arg3:->arg3' \
+    '4::arg4:->arg4' && return 0
+
+  local mode="$words[2]"  # 注意：zsh 下 words[1] 是命令名
+  case "$mode" in
+    push)
+      case $state in
+        arg2) _files; return ;;
+        arg3)
+          hosts=(${(f)"$(__ssh_config_hosts)"})
+          _describe -t hosts 'SSH config host' hosts; return ;;
+        arg4)
+          local host="$words[4]"
+          [[ -z "$host" ]] && return 0
+          candidates=(${(f)"$(__rsfzf_remote_complete "$host" "$words[5]")"})
+          _wanted remote-paths expl 'remote path' compadd -Q -S '' -o nosort -- $candidates
+          return ;;
+      esac
+      ;;
+    pull)
+      case $state in
+        arg2)
+          hosts=(${(f)"$(__ssh_config_hosts)"})
+          _describe -t hosts 'SSH config host' hosts; return ;;
+        arg3)
+          local host="$words[3]"
+          [[ -z "$host" ]] && return 0
+          candidates=(${(f)"$(__rsfzf_remote_complete "$host" "$words[4]")"})
+          _wanted remote-paths expl 'remote path' compadd -Q -S '' -o nosort -- $candidates
+          return ;;
+        arg4) _files; return ;;
+      esac
+      ;;
+  esac
+}
+
+_rsync_fzf "$@"
