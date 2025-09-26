@@ -196,24 +196,16 @@ exec-on-workspace-change = ['/bin/bash', '-c',
 
 [mode.apps.binding]
     esc = ['reload-config', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change']
-    a = ['exec-and-forget open -a /Applications/Alacritty.app', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change']
-    w = ['exec-and-forget open -a /Applications/WezTerm.app', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change']
+    k = ['exec-and-forget open -a /Applications/Kitty.app', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change']
     s = ['exec-and-forget open -a /Applications/Safari.app', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change']
     z = ['exec-and-forget open -a /Applications/Zotero.app', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change']
     o = ['exec-and-forget open -a /Applications/Obsidian.app', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change']
     v = ['exec-and-forget open -a /Applications/Visual\ Studio\ Code.app', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change']
     f = ['exec-and-forget open -a /System/Library/CoreServices/Finder.app', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change']
-    c = ['exec-and-forget open -a /Applications/WeChat.app', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change']
-    g = ['exec-and-forget open -a /Applications/ChatGPT.app', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change']
+    w = ['exec-and-forget open -a /Applications/WeChat.app', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change']
+    c = ['exec-and-forget open -a /Applications/ChatGPT.app', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change']
     q = ['exec-and-forget open -a /Applications/QQ.app', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change']
 
-    ctrl-a = ['''exec-and-forget osascript -e '
-    tell application "Alacritty"
-        make new document at end of documents
-        activate
-    end tell'
-    '''
-    ,'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change']
 
     ctrl-s = ['''exec-and-forget osascript -e '
     tell application "Safari"
@@ -223,10 +215,10 @@ exec-on-workspace-change = ['/bin/bash', '-c',
     '''
     ,'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change']
 
-    ctrl-w = ['''exec-and-forget osascript -e '
+    ctrl-k = ['''exec-and-forget osascript -e '
     tell application "System Events"
-      tell process "WezTerm"
-          click menu item "New Window" of menu "Shell" of menu bar 1
+      tell process "kitty"
+          click menu item "New OS Window" of menu "Shell" of menu bar 1
       end tell
     end tell'
     '''

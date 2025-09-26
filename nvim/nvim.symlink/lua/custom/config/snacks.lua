@@ -3,8 +3,26 @@ require("snacks").setup({
   bigfile = { enabled = true },
   dashboard = { enabled = true },
   explorer = { enabled = false },
+  styles = {
+    terminal = {
+      relative = "editor",
+      border = "rounded",
+      position = "float",
+      backdrop = 60,
+      height = 0.9,
+      width = 0.9,
+      zindex = 50,
+    },
+    snacks_image = {
+      relative = "editor",
+      col = -1,
+    },
+  },
   image = {
     enabled = true,
+    wo = {
+      winhighlight = "FloatBorder:WhichKeyBorder",
+    },
     doc = { inline = false, float = false, max_width = 80, max_height = 40 },
     math = { latex = { font_size = "small" } },
   },
@@ -89,15 +107,4 @@ require("snacks").setup({
     enabled = true,
   },
   words = { enabled = true },
-  styles = {
-    terminal = {
-      relative = "editor",
-      border = "rounded",
-      position = "float",
-      backdrop = 60,
-      height = 0.9,
-      width = 0.9,
-      zindex = 50,
-    },
-  },
 })

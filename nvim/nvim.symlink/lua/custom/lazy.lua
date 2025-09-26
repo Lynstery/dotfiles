@@ -16,8 +16,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+  rocks = {
+    -- hererocks = true, -- recommended if you do not have global installation of Lua 5.1.
+  },
   spec = {
-    { import = "custom.plugins" },
+      { import = "custom.plugins" },
   },
   install = { colorscheme = { "catppuccin" } },
   checker = { enabled = true, notify = false },
