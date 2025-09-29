@@ -2,18 +2,20 @@
 
 my personal dotfiles for (Linux/macOS)
 
-some part of project stucture is inspired by [holman/dotfiles](https://github.com/holman/dotfiles)
+some part of project structure is inspired by [holman/dotfiles](https://github.com/holman/dotfiles)
 
 ## Dependencies
 
-The Dotfiles is not responsible for install dependencies, but setup configure files. You should manually install your dependencies.
+The Dotfiles is not responsible for install dependencies, but install configure files. You should manually install your dependencies.
 
-Current Dependencies:
+Dependencies:
 - neovim
 - tmux
 - fzf
 - zoxide
 - eza
+- atuin
+
 
 for macOS:
 

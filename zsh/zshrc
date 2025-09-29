@@ -15,8 +15,8 @@ zsh_files=($ZSH/*/*.zsh)
 zsh_files=(${zsh_files:#$ZSH/zsh/*})
 zsh_files=(${zsh_files:#$ZSH/functions/*})
 zsh_files=(${zsh_files:#$ZSH/bin/*})
-path_zsh_files=(${zsh_files[(R)*/path.zsh]})
-other_zsh_files=(${zsh_files:#*/path.zsh})
+path_zsh_files=(${(M)zsh_files:#*path.zsh})
+other_zsh_files=(${zsh_files:#*path.zsh})
 
 # source path.zsh
 for f in $path_zsh_files; do
@@ -36,11 +36,15 @@ zinit light $ZSH/bin
 # load custom functions
 zinit light $ZSH/functions
 
-# load zinit plugins
-source $ZSH/zsh/zinit_plugins.zsh
+# load basic zinit plugins
+source $ZSH/zsh/basic_plugins.zsh
+
+# compinit
+autoload -Uz compinit
+compinit -C
+zinit cdreplay -q
 
 # source other *.zsh
-
 for f in $other_zsh_files; do
   source "$f"
 done
