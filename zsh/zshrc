@@ -20,7 +20,7 @@ other_zsh_files=(${zsh_files:#*path.zsh})
 
 # source path.zsh
 for f in $path_zsh_files; do
-  source "$f"
+  eval "$(atuin init zsh --disable-up-arrow)"
 done
 
 # Set Proxy before potential plugins installation

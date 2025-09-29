@@ -38,16 +38,23 @@ There's a few special files in the hierarchy.
   available everywhere.
 - **topic/\*.zsh**: Any files ending in `.zsh` get loaded into your
   environment.
-- **topic/path.zsh**: Any file named `path.zsh` is loaded first (before `compinit`) and is
+- **topic/path.zsh**: Any file named `path.zsh` is loaded first (before loading plugins and `compinit`) and is
   expected to setup `$PATH` or similar.
 - **topic/install.sh**: Any file named `install.sh` is executed when you run `script/install`. To avoid being loaded automatically, its extension is `.sh`, not `.zsh`.
 
 ## install
 
-Run:
+Clone:
 
-```sh
-git clone https://github.com/lynstery/dotfiles.git ~/.dotfiles
+```bash
+git clone https://github.com/Lynstery/dotfiles.git ~/.dotfiles
+```
+
+
+Install dotfiles:
+
+```bash
 cd ~/.dotfiles
 script/install
+# update_all=true script/install
 ```

@@ -1,13 +1,13 @@
 # basic plugins
 
-#zinit snippet OMZL::functions.zsh
-#zinit snippet OMZL::directories.zsh
-#zinit snippet OMZL::clipboard.zsh
-#zinit snippet OMZL::git.zsh
-#zinit snippet OMZL::history.zsh
-#zinit snippet OMZL::key-bindings.zsh
-#zinit snippet OMZL::termsupport.zsh
-#zinit snippet OMZP::extract
+zinit snippet OMZL::functions.zsh
+zinit snippet OMZL::directories.zsh
+zinit snippet OMZL::clipboard.zsh
+zinit snippet OMZL::git.zsh
+zinit snippet OMZL::history.zsh
+zinit snippet OMZL::key-bindings.zsh
+zinit snippet OMZL::termsupport.zsh
+zinit snippet OMZP::extract
 
 # additional completions added in fpath
 zinit light zsh-users/zsh-completions
@@ -16,7 +16,7 @@ zinit light zsh-users/zsh-completions
 zinit light jeffreytse/zsh-vi-mode
 
 function zvm_after_init() {
-  source $ZSH/atuin/init.zsh
+  eval "$(atuin init zsh --disable-up-arrow)"
 }
 
 # smart ls (eza)
