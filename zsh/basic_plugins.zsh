@@ -13,8 +13,11 @@
 zinit light zsh-users/zsh-completions
 
 # vi-mode
-ZVM_INIT_MODE=sourcing
 zinit light jeffreytse/zsh-vi-mode
+
+function zvm_after_init() {
+  source $ZSH/atuin/init.zsh
+}
 
 # smart ls (eza)
 zinit ice wait lucid
@@ -45,5 +48,5 @@ zinit ice wait lucid
 zinit light zdharma-continuum/fast-syntax-highlighting
 
 # spaceship-prompt
-zinit ice wait lucid atload'prompt_spaceship_precmd'
+#zinit ice wait lucid atload'prompt_spaceship_precmd'
 zinit light spaceship-prompt/spaceship-prompt

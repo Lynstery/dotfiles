@@ -24,8 +24,8 @@ for f in $path_zsh_files; do
 done
 
 # Set Proxy before potential plugins installation
-source $ZSH/system/proxy.zsh
-proxyon &> /dev/null
+#source $ZSH/system/proxy.zsh
+#proxyon &> /dev/null
 
 # setup zinit
 source $ZSH/zsh/zinit.zsh
