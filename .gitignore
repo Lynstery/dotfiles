@@ -1,3 +1,4 @@
 git/gitconfig.local.symlink
+atuin/atuin.symlink/atuin-receipt.json
 tmux/tmux.symlink/plugins/*
 .DS_Store
