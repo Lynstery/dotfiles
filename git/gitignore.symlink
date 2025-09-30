@@ -1,3 +1,9 @@
 .DS_Store
+.AppleDouble
+.LSOverride
 *~
 *.swp
+*.swo
+__pycache__/
+*.py[cod]
+*.pyo

@@ -3,8 +3,8 @@ func_proxy_set(){
     export https_proxy=http://127.0.0.1:$port
     export http_proxy=http://127.0.0.1:$port
     export all_proxy=socks5://127.0.0.1:$port
-    git config --global http.proxy http://127.0.0.1:$port
-    git config --global https.proxy http://127.0.0.1:$port
+    #git config --file ~/.gitconfig.local http.proxy http://127.0.0.1:$port
+    #git config --file ~/.gitconfig.local https.proxy http://127.0.0.1:$port
     echo "Proxy set: 127.0.0.1:$port"
 }
 

@@ -13,11 +13,12 @@ zinit snippet OMZP::extract
 zinit light zsh-users/zsh-completions
 
 # vi-mode
+ZVM_INIT_MODE=sourcing
 zinit light jeffreytse/zsh-vi-mode
 
-function zvm_after_init() {
-  eval "$(atuin init zsh --disable-up-arrow)"
-}
+#function zvm_after_init() {
+#  eval "$(atuin init zsh --disable-up-arrow)"
+#}
 
 # smart ls (eza)
 zinit ice wait lucid
