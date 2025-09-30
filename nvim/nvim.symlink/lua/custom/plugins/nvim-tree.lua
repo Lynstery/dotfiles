@@ -28,6 +28,11 @@ return {
         desc = "[NvimTree] Toggle or Focus NvimTree",
       },
     },
-    opts = {},
+    opts = {
+      filters = {
+        git_ignored = false,
+        dotfiles = false,
+      },
+    },
   },
 }

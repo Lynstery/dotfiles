@@ -19,7 +19,7 @@ Dependencies:
 
 for macOS:
 
-- alacritty
+- kitty
 - aerospace
 - sketchybar
 - sesh

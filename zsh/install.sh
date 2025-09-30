@@ -15,7 +15,7 @@ setup_zshrc(){
 
       user "File already exists: $(shortpath "$DST")$( [ -L "$DST" ] && printf ' （%s）' "$(shortpath "$(readlink "$DST")")" )"
       echo ""
-      user "What do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all? "
+      user "What do you want to do? [s]kip, [S]kip all, [u]pdate, [U]pdate? "
       read -rn1 action </dev/tty
       echo ""
 
