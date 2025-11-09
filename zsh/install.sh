@@ -66,7 +66,6 @@ setup_zshrc(){
 
 setup_zshrc
 
-rm -f "$HOME/.config/spaceship.zsh.zwc" 2>/dev/null || true
-linkfile "$DOTFILES_ROOT/zsh/spaceship.zsh.symlink" "$HOME/.config/spaceship.zsh"
+linkfile "$DOTFILES_ROOT/zsh/starship.toml.symlink" "$HOME/.config/starship.toml"
 
 success 'install zshrc'

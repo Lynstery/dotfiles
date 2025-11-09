@@ -49,4 +49,5 @@ for f in $other_zsh_files; do
   source "$f"
 done
 
+# startship required
 eval "$(starship init zsh)"
