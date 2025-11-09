@@ -446,7 +446,7 @@ M.FileFlags = {
         "dap-repl",
       }
       local result = vim.fn.fnamemodify(self.filename, ":.") ~= ""
-        and vim.api.nvim_get_option_value("modified", { buf = self.bufnr })
+          and vim.api.nvim_get_option_value("modified", { buf = self.bufnr })
       local ft = vim.api.nvim_get_option_value("buftype", { buf = self.bufnr })
       if vim.tbl_contains(ignored_filetypes, ft) then
         result = false
@@ -461,7 +461,7 @@ M.FileFlags = {
   {
     condition = function(self)
       return not vim.api.nvim_get_option_value("modifiable", { buf = self.bufnr })
-        or vim.api.nvim_get_option_value("readonly", { buf = self.bufnr })
+          or vim.api.nvim_get_option_value("readonly", { buf = self.bufnr })
     end,
     provider = function(self)
       if vim.api.nvim_get_option_value("buftype", { buf = self.bufnr }) == "terminal" then
@@ -528,11 +528,22 @@ M.SearchOccurrence = {
   end,
   hl = { fg = palette.sky },
   provider = function()
-    local sinfo = vim.fn.searchcount({ maxcount = 0 })
-    local search_stat = sinfo.incomplete > 0 and " [?/?]"
-      or sinfo.total > 0 and (" [%s/%s]"):format(sinfo.current, sinfo.total)
-      or ""
-    return search_stat
+    local ok, sinfo = pcall(vim.fn.searchcount, { maxcount = 0 })
+    if not ok or type(sinfo) ~= "table" then
+      return ""
+    end
+
+    local incomplete = tonumber(sinfo.incomplete) or 0
+    local total = tonumber(sinfo.total) or 0
+    local current = tonumber(sinfo.current) or 0
+
+    if incomplete > 0 then
+      return " [?/?]"
+    elseif total > 0 then
+      return (" [%d/%d]"):format(current, total)
+    else
+      return ""
+    end
   end,
 }
 
