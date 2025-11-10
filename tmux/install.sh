@@ -4,6 +4,7 @@ info 'install tmux config'
 linkfile "$DOTFILES_ROOT/tmux/tmux.symlink" "$HOME/.config/tmux"
 
 TMUX_PLUGINS_PATH=$DOTFILES_ROOT/tmux/tmux.symlink/plugins
+
 for repo in \
   "https://github.com/catppuccin/tmux.git@v2.1.3 $TMUX_PLUGINS_PATH/catppuccin/tmux" \
   "https://github.com/tmux-plugins/tmux-yank $TMUX_PLUGINS_PATH/tmux-yank" \
