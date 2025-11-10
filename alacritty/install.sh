@@ -1,6 +1,6 @@
 echo ''
-info 'install alacritty config'
+info '[alacritty]'
 
 linkfile "$DOTFILES_ROOT/alacritty/alacritty.symlink" "$HOME/.config/alacritty"
 
-success 'install alacritty config'
+success '[alacritty]'

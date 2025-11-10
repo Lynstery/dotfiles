@@ -1,7 +1,8 @@
 echo ''
-info 'install zshrc'
+info '[zshrc]'
 
 setup_zshrc(){
+
   local update=false skip=false action=
 
   SRC="$DOTFILES_ROOT/zsh/zshrc"
@@ -9,9 +10,10 @@ setup_zshrc(){
   START="# >>> added by dotfiles >>>"
   END="# <<< added by dotfiles <<<"
 
+  info "update $(shortpath "$DST") ..."
 
   if [[ -e "$DST" ]]; then
-    if [[ $update_all != true && $backup_all != true ]]; then
+    if [[ $update_all != true && $skip_all != true ]]; then
 
       user "File already exists: $(shortpath "$DST")$( [ -L "$DST" ] && printf ' （%s）' "$(shortpath "$(readlink "$DST")")" )"
       echo ""
@@ -66,6 +68,7 @@ setup_zshrc(){
 
 setup_zshrc
 
-linkfile "$DOTFILES_ROOT/zsh/starship.toml.symlink" "$HOME/.config/starship.toml"
+#linkfile "$DOTFILES_ROOT/zsh/starship.toml.symlink" "$HOME/.config/starship.toml"
+linkfile "$DOTFILES_ROOT/zsh/spaceship.zsh.symlink" "$HOME/.config/spaceship.zsh"
 
-success 'install zshrc'
+success '[zshrc]'

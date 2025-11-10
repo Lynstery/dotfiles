@@ -50,4 +50,4 @@ for f in $other_zsh_files; do
 done
 
 # startship required
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"

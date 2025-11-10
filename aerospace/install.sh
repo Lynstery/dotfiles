@@ -1,6 +1,6 @@
 echo ''
-info 'install aerospace config'
+info '[aerospace]'
 
 linkfile "$DOTFILES_ROOT/aerospace/aerospace.symlink" "$HOME/.config/aerospace"
 
-success 'install aerospace config'
+success '[aerospace]'

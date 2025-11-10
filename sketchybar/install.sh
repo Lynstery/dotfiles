@@ -1,6 +1,6 @@
 echo ''
-info 'install sketchybar config'
+info '[sketchybar]'
 
 linkfile "$DOTFILES_ROOT/sketchybar/sketchybar.symlink" "$HOME/.config/sketchybar"
 
-success 'install sketchybar config'
+success '[sketchybar]'

@@ -1,6 +1,6 @@
 echo ''
-info 'install atuin config'
+info '[atuin]'
 
 linkfile "$DOTFILES_ROOT/atuin/atuin.symlink" "$HOME/.config/atuin"
 
-success 'install atuin config'
+success '[atuin]'

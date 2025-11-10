@@ -1,6 +1,6 @@
 echo ''
-info 'install nvim config'
+info '[nvim]'
 
 linkfile "$DOTFILES_ROOT/nvim/nvim.symlink" "$HOME/.config/nvim"
 
-success 'install nvim config'
+success '[nvim]'
