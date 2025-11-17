@@ -63,10 +63,10 @@ if [ -z "$icons" ]; then
       icon.color="$BACKGROUND" \
       background.color="$ACCENT_COLOR"
 
-    sketchybar --animate sin 10 \
-      --set "$NAME" \
-      y_offset=3 y_offset=0 \
-      background.drawing=on
+    #sketchybar --animate sin 10 \
+    #  --set "$NAME" \
+    #  y_offset=3 y_offset=0 \
+    #  background.drawing=on
   else
     sketchybar --set "$NAME" drawing=off
   fi
@@ -81,10 +81,10 @@ else
       icon.color="$BACKGROUND" \
       background.color="$ACCENT_COLOR"
 
-    sketchybar --animate sin 10 \
-      --set "$NAME" \
-      y_offset=3 y_offset=0 \
-      background.drawing=on
+    #sketchybar --animate sin 10 \
+    #  --set "$NAME" \
+    #  y_offset=3 y_offset=0 \
+    #  background.drawing=on
   else
     sketchybar --set "$NAME" \
       display="$monitor" \
