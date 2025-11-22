@@ -36,11 +36,12 @@ zinit light $ZSH/bin
 # load custom functions
 zinit light $ZSH/functions
 
+# load spaceship custom sections
+source $ZSH/zsh/spaceship-custom-sections.zsh
+
 # load basic zinit plugins
 source $ZSH/zsh/basic_plugins.zsh
 
-# load spaceship custom sections
-source $ZSH/zsh/spaceship-custom-sections.zsh
 
 # compinit
 autoload -Uz compinit
@@ -51,6 +52,3 @@ zinit cdreplay -q
 for f in $other_zsh_files; do
   source "$f"
 done
-
-# startship required
-# eval "$(starship init zsh)"
