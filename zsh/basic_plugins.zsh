@@ -41,5 +41,5 @@ zinit ice wait lucid
 zinit light zdharma-continuum/fast-syntax-highlighting
 
 # spaceship-prompt
-zinit ice wait lucid atload'prompt_spaceship_precmd'
+#zinit ice wait lucid atload'prompt_spaceship_precmd'
 zinit light spaceship-prompt/spaceship-prompt
