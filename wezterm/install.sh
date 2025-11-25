@@ -1,6 +1,6 @@
 echo ''
 info '[wezterm]'
 
-linkfile "$dotfiles_root/wezterm/wezterm.symlink" "$home/.config/wezterm"
+linkfile "$DOTFILES_ROOT/wezterm/wezterm.symlink" "$HOME/.config/wezterm"
 
 success '[wezterm]'
