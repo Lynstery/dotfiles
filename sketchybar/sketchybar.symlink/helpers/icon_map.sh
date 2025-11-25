@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+
+
+
 ### START-OF-ICON-MAP
 function __icon_map() {
     case "$1" in
@@ -11,6 +14,9 @@ function __icon_map() {
         ;;
    "Adobe Bridge"*)
         icon_result=":adobe_bridge:"
+        ;;
+   "AFFiNE")
+        icon_result=":affine:"
         ;;
    "Affinity Designer")
         icon_result=":affinity_designer:"
